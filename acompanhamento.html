@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIP · Acompanhamento Semanal · 27/11/2026</title>
+<style>
+:root{--maroon:#8D1638;--maroon-dark:#6B0F29;--gold:#FCBF3D;--bg:#F7F5F4;--card:#fff;--ink:#2B2320;--soft:#6E6C6C;--border:#E8E1DD;--ok:#1E7A3A;--danger:#B3261E;--warn:#9A6B00}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Calibri,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+header{background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));color:#fff;padding:.85rem 1.2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;border-bottom:4px solid var(--gold);position:sticky;top:0;z-index:60}
+.brand{font-weight:700;font-size:1.1rem}.brand span{color:var(--gold)}
+.meta{font-size:.78rem;color:#F0D9DF}
+.export-wrap{position:relative}
+.btn{background:var(--gold);color:var(--maroon-dark);border:none;border-radius:8px;padding:.48rem 1rem;font-weight:700;font-size:.85rem;cursor:pointer}
+.btn:hover{filter:brightness(1.06)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:.42rem .8rem;font-weight:650;font-size:.8rem;cursor:pointer}
+.btn-ghost.active{background:rgba(252,191,61,.25);border-color:var(--gold);color:var(--gold)}
+.btn-menu{position:absolute;right:0;top:110%;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:190px;display:none;z-index:70;overflow:hidden}
+.btn-menu.open{display:block}
+.btn-menu button{display:block;width:100%;text-align:left;padding:.65rem 1rem;border:none;background:#fff;font-size:.88rem;cursor:pointer;color:var(--ink);font-weight:600}
+.btn-menu button:hover{background:#FFF5F7;color:var(--maroon)}
+.hero{background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));color:#fff;text-align:center;padding:1.3rem 1rem 1.45rem}
+.hero h1{font-size:1.5rem}.hero h1 span{color:var(--gold)}.hero p{color:#F0D9DF;font-size:.88rem;margin-top:.25rem}
+.wrap{max-width:960px;margin:0 auto;padding:1.1rem 1rem 3rem}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin:-1.1rem 0 1rem}
+@media(max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.7rem .45rem;text-align:center;box-shadow:0 4px 14px rgba(141,22,56,.07)}
+.kpi b{display:block;font-size:1.35rem;color:var(--maroon)}.kpi span{font-size:.68rem;color:var(--soft);font-weight:600}
+.alert{background:#F7F5F4;border:none;border-radius:12px;padding:.8rem 1rem;margin-bottom:.75rem;font-size:.85rem;color:#3D3330}
+.alert strong{color:var(--maroon)}
+.alert.ok{background:#F0F7F2;color:#1A4D2E}
+.alert.ok strong{color:var(--ok)}
+.alert.risk{background:#FDF6F6;color:#5C1A1A}
+.alert.risk strong{color:var(--danger)}
+.toolbar{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.85rem;align-items:center}
+.toolbar input[type="search"]{flex:1;min-width:160px;border:1px solid var(--border);border-radius:10px;padding:.55rem .85rem;font-size:.88rem;background:#fff}
+.toolbar select{border:1px solid var(--border);border-radius:10px;padding:.55rem .7rem;font-size:.82rem;background:#fff;font-weight:600;color:var(--ink)}
+.tabs{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem;position:sticky;top:56px;z-index:40;background:var(--bg);padding:.35rem 0}
+.tab{border:1px solid var(--border);background:#fff;border-radius:999px;padding:.38rem .8rem;font-size:.78rem;font-weight:650;color:var(--soft);cursor:pointer}
+.tab:hover,.tab.active{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.panel{display:none}.panel.active{display:block}
+.proj{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:.5rem;overflow:hidden}
+.hidden{display:none!important}.proj.hidden{display:none}
+.proj-h{display:flex;gap:.55rem;align-items:flex-start;padding:.8rem .95rem;cursor:pointer;user-select:none}
+.proj-h .name{flex:1;font-weight:650;font-size:.88rem}
+.proj-h .right{display:flex;flex-direction:column;align-items:flex-end;gap:.2rem;min-width:4.2rem}
+.proj-h .pct{font-weight:700;color:var(--maroon);font-size:.95rem}
+.delta{font-size:.72rem;font-weight:700}
+.delta.up{color:var(--ok)}.delta.down{color:var(--danger)}.delta.flat{color:var(--soft)}
+.badge{font-size:.68rem;font-weight:700;padding:.16rem .48rem;border-radius:999px;white-space:nowrap}
+.b-ok{background:#D4EDDA;color:var(--ok)}.b-att{background:#F8D7DA;color:var(--danger)}.b-sem{background:#F0EDEC;color:var(--soft)}.b-upd{background:#FFF3CD;color:var(--warn)}
+.bar{height:6px;background:#EFEAE8;border-radius:99px;margin:0 .95rem .75rem;overflow:hidden}
+.bar > i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--maroon),#C43B5E)}
+.bar.ok > i{background:linear-gradient(90deg,#1E7A3A,#3CB371)}
+.bar.att > i{background:linear-gradient(90deg,#B3261E,#E05A52)}
+.proj-b{display:none;padding:0 .95rem .95rem;border-top:1px dashed var(--border);font-size:.84rem}
+.proj.open .proj-b{display:block;padding-top:.7rem}
+.proj-b p{margin-bottom:.38rem;color:#333}.proj-b ul{margin:.15rem 0 .4rem 1.1rem;color:#444}.proj-b li{margin-bottom:.15rem}
+.label{font-weight:700}
+h2.sec{font-size:1.02rem;color:var(--maroon);margin:1.2rem 0 .55rem;padding-bottom:.22rem;border-bottom:2px solid var(--maroon)}
+.subtabs{display:flex;flex-wrap:wrap;gap:.3rem;margin:.5rem 0 .7rem}
+.stab{border:1px solid var(--border);background:#fff;border-radius:8px;padding:.32rem .7rem;font-size:.76rem;font-weight:650;color:var(--soft);cursor:pointer}
+.stab.active,.stab:hover{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.cmp-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:.75rem .9rem;margin-bottom:.55rem}
+.cmp-card .ct{font-weight:700;font-size:.88rem;margin-bottom:.35rem}
+.cmp-card .cr{font-size:.82rem;color:#444;line-height:1.45}
+.obs{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.85rem 1rem;margin-top:.7rem;font-size:.84rem}
+.obs strong{color:var(--maroon)}
+.empty{text-align:center;color:var(--soft);padding:1.5rem;font-size:.9rem}
+footer{background:var(--maroon);color:#F0D9DF;text-align:center;padding:1rem;font-size:.78rem;border-top:4px solid var(--gold)}
+.header-actions{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
+@media print{header,.tabs,.btn,.no-print,.export-wrap,.toolbar{display:none!important}.panel{display:block!important}.proj-b{display:block!important}.proj.hidden{display:block!important}body{background:#fff}}
+</style>
+</head>
+<body>
+<header class="no-print">
+  <div>
+    <div class="brand">BIP <span>· Permanente</span></div>
+    <div class="meta">Acompanhamento 27/11/2026 · vs 23/11/2026</div>
+  </div>
+  <div class="header-actions">
+    <button class="btn-ghost" id="btnRisk" type="button" onclick="toggleRiskMode()">Só riscos</button>
+    <div class="export-wrap">
+      <button class="btn" type="button" onclick="toggleExportMenu(event)">Exportar ▾</button>
+      <div class="btn-menu" id="exportMenu">
+        <button type="button" onclick="exportWord()">Documento Word (.doc)</button>
+        <button type="button" onclick="exportPdf()">PDF</button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="hero no-print">
+  <h1>Acompanhamento <span>Semanal</span> de Projetos</h1>
+  <p>Status, o que atrasa e o que avançou</p>
+</div>
+<div class="wrap" id="report">
+  <div class="kpis">
+    <div class="kpi"><b>30</b><span>No radar</span></div>
+    <div class="kpi"><b style="color:var(--danger)">2</b><span>Atenção</span></div>
+    <div class="kpi"><b style="color:var(--ok)">2</b><span>Avançaram</span></div>
+    <div class="kpi"><b style="color:var(--soft)">18</b><span>Sem alteração</span></div>
+    <div class="kpi"><b style="color:var(--ok)">8</b><span>Concluídos</span></div>
+  </div>
+  <div class="alert ok"><strong>Avanços (23/11 → 27/11):</strong> Dermo 15% 10% → 62,50% (marcas prioritárias e mapa de clínicas fechados em 23/11) · 360 GC 20% → 33,33% (IQVIA 5/5 concluída)</div>
+  <div class="alert risk"><strong>Riscos:</strong> Oncológicos — META VENDA só 1/3 (Nov e Dez abertos) · CRM 0% com contrato ROCK pendente (prazo 30/11) · Comunicação 360 — só falta Distribuição merchandising 0/5 · 2ª Etapa 24 atrasadas (Loja 57 em 0%) · WMS Go Live 0/11 · Book temáticas 0/12</div>
+
+  <div class="toolbar no-print">
+    <input type="search" id="searchBox" placeholder="Buscar projeto..." oninput="applyFilters()">
+    <select id="statusFilter" onchange="applyFilters()">
+      <option value="all">Todos os status</option>
+      <option value="Atenção">Atenção</option>
+      <option value="Avançou">Avançou</option>
+      <option value="Sem alteração">Sem alteração</option>
+      <option value="Concluído">Concluído</option>
+    </select>
+  </div>
+
+  <div class="tabs no-print">
+    <button class="tab active" onclick="showTab('todos',this)">Todos</button>
+    <button class="tab" onclick="showTab('comercial',this)">Comercial</button>
+    <button class="tab" onclick="showTab('dados',this)">Dados</button>
+    <button class="tab" onclick="showTab('estoque',this)">Estoque</button>
+    <button class="tab" onclick="showTab('marketing',this)">Marketing</button>
+    <button class="tab" onclick="showTab('td',this)">T&amp;D</button>
+    <button class="tab" onclick="showTab('ti',this)">TI</button>
+    <button class="tab" onclick="showTab('comparativo',this)">Comparativo</button>
+  </div>
+
+  <div class="panel active" id="tab-todos"><div id="allCards"></div><div class="empty empty-msg hidden">Nenhum projeto encontrado com esse filtro.</div></div>
+  <div class="panel" id="tab-comercial"><div id="cards-comercial"></div><div class="empty empty-msg hidden">Nenhum projeto encontrado com esse filtro.</div></div>
+  <div class="panel" id="tab-dados"><div id="cards-dados"></div><div class="empty empty-msg hidden">Nenhum projeto encontrado com esse filtro.</div></div>
+  <div class="panel" id="tab-estoque"><div id="cards-estoque"></div><div class="empty empty-msg hidden">Nenhum projeto encontrado com esse filtro.</div></div>
+  <div class="panel" id="tab-marketing"><div id="cards-marketing"></div><div class="empty empty-msg hidden">Nenhum projeto encontrado com esse filtro.</div></div>
+  <div class="panel" id="tab-td"><div id="cards-td"></div><div class="empty empty-msg hidden">Nenhum projeto encontrado com esse filtro.</div></div>
+  <div class="panel" id="tab-ti"><div id="cards-ti"></div><div class="empty empty-msg hidden">Nenhum projeto encontrado com esse filtro.</div></div>
+  <div class="panel" id="tab-comparativo">
+    <h2 class="sec">Comparativo 23/11 → 27/11</h2>
+    <div class="subtabs no-print">
+      <button class="stab active" onclick="showTbl('comercial',this)">Comercial</button>
+      <button class="stab" onclick="showTbl('dados',this)">Dados</button>
+      <button class="stab" onclick="showTbl('estoque',this)">Estoque</button>
+      <button class="stab" onclick="showTbl('marketing',this)">Marketing</button>
+      <button class="stab" onclick="showTbl('td',this)">T&amp;D</button>
+      <button class="stab" onclick="showTbl('ti',this)">TI</button>
+    </div>
+    <div id="cmp-root"></div>
+    <div class="obs"><strong>Observação final</strong><br>Dermo avançou porque marcas prioritárias e mapeamento de clínicas foram concluídos em 23/11; falta Market share (atrasada desde 31/10). 360 GC avançou com IQVIA fechada; mix e baixo giro seguem 0% com prazo 30/11. Oncológicos não “piorou” por atraso operacional: a META VENDA mensal tem só Outubro marcado (1/3). Comunicação 360 fecha com a distribuição do merchandising (0/5). CRM depende da assinatura ROCK até 30/11.</div>
+  </div>
+</div>
+<footer class="no-print">BIP · Farmácia Permanente · Acompanhamento 27/11/2026</footer>
+<script>
+const DATA = {"comercial": [{"name": "Aumento de Vendas de GLP1 - Meta mensal (R$ 3,985 mi → R$ 4,585 mi)", "status": "Sem alteração", "pct": 77.77, "prev": 77.77, "delta": 0.0, "situacao": "Estável em 77,77% vs 23/11. Meta reconfigurada (R$ 3,985 mi → R$ 4,585 mi).", "impacto": ["Sem mudança de percentual no período.", "Ciclo mensal e análise por laboratório/estado ainda precisam de registro formal no BIP."], "sugestao": "Registrar no BIP o status do ciclo vigente e as ações por laboratório em andamento."}, {"name": "Sala Farmacêutica – 3ª Etapa / Farmácia Popular (19 lojas) - R$ 9.500 mil", "status": "Sem alteração", "pct": 27.65, "prev": 27.65, "delta": 0.0, "situacao": "Estável em 27,65% vs 23/11. Destravamento anterior se manteve; maioria das lojas ainda no início do checklist de material da sala.", "impacto": ["Avanço de 13/11→23/11 se consolidou, mas sem novo salto no período.", "Grande parte das 19 lojas ainda com checklist de material próximo de zero."], "sugestao": "Priorizar lojas ainda em 0% no material da sala, com cronograma por unidade até o fim de novembro."}, {"name": "Sala Farmacêutica – 2ª Etapa (28 lojas) e Sala de Vacinação – Loja 187", "status": "Sem alteração", "pct": 75.41, "prev": 75.41, "delta": 0.0, "situacao": "Estável em 75,41% vs 23/11, com 24 tarefas atrasadas. Lojas 123, 88 e 187 em 100%. Exemplos de atraso: Loja 57 em 0% (0/2); Lojas 82 e 115 em 50% (2/4); Loja 51 em 50% (3/6); Loja 31 em 62,5% (5/8). Várias lojas acima de 75% ainda constam como atrasadas por checklist incompleto.", "impacto": ["24 tarefas atrasadas — maior volume da carteira.", "Loja 57 zerada (0/2); lojas 82 e 115 pela metade (2/4); material da sala e documentação são o padrão de pendência.", "Percentual geral alto mascara lojas críticas ainda no começo."], "sugestao": "Montar fila prioritária: Loja 57 (0%), depois 82 e 115 (50%), com responsável por material/documentação e data de fechamento por loja."}, {"name": "Dermoconsultora – 3ª Loja do Shopping de Maceió", "status": "Sem alteração", "pct": 55.57, "prev": 55.57, "delta": 0.0, "situacao": "Estável em 55,57%, atrasado. Tarefas: Criar comissão diferenciada 100%; Treinamento específico de dermo e perfumes 0% (checklist 0/5, atrasada desde 30/09); Contrato de 3 pessoas e treinar lojas 52-124-179 em 66,7% (checklist 2/3, atrasada).", "impacto": ["Treinamento de dermo/perfumes zerado (0/5) desde o prazo 30/09 — principal bloqueio.", "Contrato/treinamento das 3 pessoas nas lojas 52, 124 e 179 em 2/3 — falta 1 item do checklist.", "Projeto com previsão original 30/09, já estourada há quase 2 meses."], "sugestao": "Destravar o treinamento (checklist 0/5) e fechar o 3º item do contrato/treinamento das lojas 52-124-179. Sem isso o piloto não anda."}, {"name": "Sala Farmacêutica – 1ª Etapa (13 lojas)", "status": "Sem alteração", "pct": 83.41, "prev": 83.41, "delta": 0.0, "situacao": "Estável em 83,41% vs 23/11, com 8 tarefas atrasadas no painel.", "impacto": ["8 tarefas atrasadas impedem o fechamento das salas restantes.", "Percentual parado desde 23/11 — sem evolução de checklist nas lojas em aberto."], "sugestao": "Listar nominalmente as 8 tarefas atrasadas (loja + item de checklist) com responsável e prazo nesta semana."}, {"name": "Projeto 360 GC – 1ª Etapa (215 produtos / mercado R$ 455 mil)", "status": "Avançou", "pct": 33.33, "prev": 20.0, "delta": 13.33, "situacao": "Subiu de 20% (23/11) para 33,33%. A tarefa Analisar mercado via IQVIA foi concluída em 23/11 (5/5). As outras duas tarefas seguem 0%: Revisar mix e sortimento por loja, e Identificar/bloquear itens sem venda ou baixo giro. Prazo do projeto: 30/11.", "impacto": ["IQVIA (análise de mercado) fechada em 23/11 — explica o avanço de 20% para 33%.", "Revisar mix por loja e bloquear baixo giro ainda zerados, ambos com prazo 30/11 e responsável Matheus.", "Sem essas duas tarefas o projeto não passa de 33%."], "sugestao": "Priorizar com Matheus, ainda esta semana: (1) revisão de mix/sortimento por loja e (2) lista de itens sem venda/baixo giro para bloqueio. Prazo do projeto é 30/11."}, {"name": "Aumento de Vendas de Dermo (+15% até dezembro)", "status": "Avançou", "pct": 62.5, "prev": 10.0, "delta": 52.5, "situacao": "Subiu de 10% (23/11) para 62,50%. O salto veio de duas tarefas concluídas em 23/11: Definir marcas e produtos prioritários (6/6) e Mapear dermatologistas e clínicas (100%). ACOMPANHAMENTO DE VENDAS está em 50% (checklist 2/4). Analisar Market share por laboratórios permanece 0% e atrasada desde 31/10.", "impacto": ["Avanço real: marcas prioritárias e mapa de dermatologistas/clínicas foram fechados em 23/11.", "Trava atual: Analisar Market share por laboratórios (0%, atrasada desde 31/10).", "ACOMPANHAMENTO DE VENDAS (meta +R$ 62 mil/mês) em 2/4 itens do checklist."], "sugestao": "Cobrar imediatamente a tarefa Analisar Market share (atrasada desde 31/10) com responsável e prazo. Completar os 2 itens restantes do checklist de ACOMPANHAMENTO DE VENDAS."}, {"name": "Oncológicos e Medicamentos Especiais", "status": "Atenção", "pct": 77.77, "prev": 100.0, "delta": -22.23, "situacao": "Em 77,77% (estava 100% em 23/11). O projeto tem 3 tarefas: META VENDA ONCOLÓGICOS em 33,3% (checklist 1/3 — só Outubro foi marcado, com faturado R$ 170.738,73 acima da meta R$ 156.000); Novembro e Dezembro ainda abertos. As outras duas tarefas (Definir medicamentos 3/3 e Mapear laboratório/médicos 2/2) estão 100%.", "impacto": ["O recuo de 100% para 77,77% reflete a tarefa META VENDA com checklist mensal: apenas Outubro concluído; Novembro e Dezembro pendentes.", "Definir medicamentos (219 produtos priorizados, 142 cadastrados) e mapeamento de médicos/laboratórios já estão fechados.", "Sem as metas de Novembro e Dezembro marcadas, o projeto não volta a 100%."], "sugestao": "Atualizar o checklist de META VENDA com o realizado de novembro assim que fechar o mês. Manter acompanhamento semanal do faturamento oncológico até a meta de dezembro (R$ 312 mil)."}], "dados": [{"name": "Educa Permanente", "status": "Concluído", "pct": 100.0, "prev": 100.0, "delta": 0.0, "situacao": "Concluído.", "impacto": [], "sugestao": ""}, {"name": "Painel de Transparência do Fornecedor", "status": "Sem alteração", "pct": 75.0, "prev": 75.0, "delta": 0.0, "situacao": "Estável em 75% vs 23/11, atrasado.", "impacto": ["Etapa restante apontada: Painel de Gestão de Campanhas."], "sugestao": "Cobrar conclusão do Painel de Gestão de Campanhas com data."}, {"name": "Diferença de Preço", "status": "Concluído", "pct": 100.0, "prev": 100.0, "delta": 0.0, "situacao": "Concluído.", "impacto": [], "sugestao": ""}, {"name": "Controle de Devolução", "status": "Concluído", "pct": 100.0, "prev": 100.0, "delta": 0.0, "situacao": "Concluído.", "impacto": [], "sugestao": ""}], "estoque": [{"name": "Implantação da Dark Store", "status": "Sem alteração", "pct": 6.25, "prev": 6.25, "delta": 0.0, "situacao": "Estável em 6,25% vs 23/11.", "impacto": ["Benchmarking de necessidades/custos sem conclusão visível no BIP."], "sugestao": "Cobrar entrega do levantamento de necessidades e custos com prazo."}, {"name": "Aumentar o Nível de Serviço do CD (87% → 91%)", "status": "Concluído", "pct": 100.0, "prev": 100.0, "delta": 0.0, "situacao": "Concluído.", "impacto": [], "sugestao": ""}, {"name": "Aumentar a Produtividade (600 → 900 unds/colaborador)", "status": "Sem alteração", "pct": 47.22, "prev": 47.22, "delta": 0.0, "situacao": "Estável em 47,22% vs 23/11.", "impacto": ["Monitoramento de produtividade e rotina de reuniões de performance ainda insuficientes no painel."], "sugestao": "Definir indicador semanal e responsável pela rotina de reuniões de performance."}, {"name": "Projeto Nível de Serviço", "status": "Concluído", "pct": 100.0, "prev": 100.0, "delta": 0.0, "situacao": "Concluído.", "impacto": [], "sugestao": ""}, {"name": "3 Milhões em Parados 180 dias", "status": "Concluído", "pct": 100.0, "prev": 100.0, "delta": 0.0, "situacao": "Concluído.", "impacto": [], "sugestao": ""}], "marketing": [{"name": "Material de Comunicação Geral – Todas as Lojas", "status": "Sem alteração", "pct": 60.0, "prev": 60.0, "delta": 0.0, "situacao": "Estável em 60% vs 23/11. Concluídas: Revisão comunicação externa (4/4), Revisão comunicação interna (11/11, concluída em 23/11) e Definir material padrão (2/2). Em aberto: Levantamento das necessidades das lojas (0%) e Criação do cronograma de aplicação de lojas (0%), ambas com prazo 30/11.", "impacto": ["As 3 primeiras frentes (revisões externa/interna e material padrão) estão 100%.", "Levantamento de necessidades das lojas e cronograma de aplicação seguem 0%, prazo 30/11, responsável Lucas/Italo.", "Sem essas duas tarefas o projeto não passa de 60%."], "sugestao": "Priorizar nesta semana o levantamento das necessidades das lojas e, em seguida, a criação do cronograma de aplicação — ambos com prazo 30/11."}, {"name": "Planejamento 30-60-90", "status": "Concluído", "pct": 100.0, "prev": 100.0, "delta": 0.0, "situacao": "Concluído.", "impacto": [], "sugestao": ""}, {"name": "Book de Enxoval de Loja Padrão", "status": "Sem alteração", "pct": 0.0, "prev": 0.0, "delta": 0.0, "situacao": "Permanece em 0% vs 23/11, com 1 tarefa atrasada. Tarefas: Definir as temáticas das campanhas (0%, checklist 0/12, atrasada, prazo 24/11, responsável Italo); Campanha Macro - Mês da Mulher 03/2027 (0%, status futura).", "impacto": ["Definir temáticas está 0/12 e atrasada desde 24/11 — bloqueia o restante do book.", "Campanha Macro (Mês da Mulher) ainda futura (jan/fev 2027)."], "sugestao": "Cobrar de Italo o início do checklist de temáticas (0/12) com data; sem isso o Book não sai do zero."}, {"name": "Pedido para Retirada com Pagamento em Loja", "status": "Sem alteração", "pct": 0.0, "prev": 0.0, "delta": 0.0, "situacao": "0% vs 23/11.", "impacto": ["Sem tarefas em execução visível."], "sugestao": "Confirmar data real de início."}, {"name": "Migração Inteliger (Carteira Digital) – Site e Aplicativo", "status": "Sem alteração", "pct": 40.48, "prev": 40.48, "delta": 0.0, "situacao": "Estável em 40,48% vs 23/11.", "impacto": ["Homologação e integração ainda no caminho para avançar além de 40%."], "sugestao": "Listar pendências técnicas abertas com data de homologação."}, {"name": "Comunicação 360 – Baixe o App", "status": "Sem alteração", "pct": 87.5, "prev": 87.5, "delta": 0.0, "situacao": "Estável em 87,50%, atrasado. Das 8 tarefas, 7 estão 100%. Única aberta: Distribuição do material de merchandising (0%, checklist 0/5, atrasada desde 25/10). Previsão original do projeto era 15/10.", "impacto": ["Única pendência: Distribuição do material de merchandising — 0 de 5 itens do checklist, atrasada desde 25/10.", "Roteiro TV, comunicação interna, TVs indoor, spots de rádio, mídias sociais, desenvolvimento e produção de merchandising já concluídos.", "Projeto não fecha e permanece atrasado só por essa distribuição."], "sugestao": "Cobrar de Italo/Lucas a distribuição do merchandising (checklist 0/5) com data de conclusão nesta semana — é o único bloqueio para 100%."}, {"name": "Entrega a Domicílio", "status": "Concluído", "pct": 100.0, "prev": 100.0, "delta": 0.0, "situacao": "Concluído.", "impacto": [], "sugestao": ""}, {"name": "Advantage", "status": "Sem alteração", "pct": 87.5, "prev": 87.5, "delta": 0.0, "situacao": "Estável em 87,50% vs 23/11.", "impacto": ["Planograma 12/2026 e coerência de datas futuras ainda no radar."], "sugestao": "Validar coerência das datas com o responsável."}, {"name": "Captação de Receitas", "status": "Sem alteração", "pct": 0.0, "prev": 0.0, "delta": 0.0, "situacao": "0% vs 23/11.", "impacto": ["Checklist sem ciclos marcados."], "sugestao": "Iniciar checklist semanal."}, {"name": "Chat Commerce e Chat BOT IA", "status": "Sem alteração", "pct": 33.33, "prev": 33.33, "delta": 0.0, "situacao": "Estável em 33,33% vs 23/11, com 1 tarefa atrasada no painel.", "impacto": ["1 tarefa atrasada mantém o projeto no radar de risco.", "Análise FastZap vs internalização ainda não concluída de forma visível no percentual."], "sugestao": "Identificar no BIP qual é a tarefa atrasada e cobrar conclusão com responsável e data."}, {"name": "CRM", "status": "Atenção", "pct": 0.0, "prev": 0.0, "delta": 0.0, "situacao": "Permanece em 0% vs 23/11. Prazo 30/11 (3 dias). Duas tarefas: Assinatura do contrato ROCK (0%) — pré-requisito de kickoff e integração; Criação do material de treinamento dos colaboradores (0%, responsável Lucas).", "impacto": ["Sem assinatura ROCK não há kickoff nem integração técnica — projeto inteiro bloqueado.", "Material de treinamento (script de atendimento + vídeo para Educa Permanente) também em 0%.", "Prazo 30/11 em 3 dias, sem nenhum item iniciado."], "sugestao": "Posicionamento urgente de Italo sobre a assinatura ROCK ainda hoje. Se o contrato não sair até 30/11, reprogramar o prazo no BIP e comunicar o atraso formalmente."}], "td": [{"name": "Trilha 01 | Liderança – Treinamentos 2026", "status": "Sem alteração", "pct": 1.67, "prev": 1.67, "delta": 0.0, "situacao": "Estável em 1,67% vs 23/11.", "impacto": ["PDLs/PDR com pouco movimento."], "sugestao": "Cobrar próximo passo do PDL."}], "ti": [{"name": "WMS 4.0", "status": "Sem alteração", "pct": 75.0, "prev": 75.0, "delta": 0.0, "situacao": "Estável em 75% vs 23/11, atrasado, 2 tarefas atrasadas. Etapas concluídas incluem Ajustes/Customizações/Simulados (2/2). Em aberto e atrasadas: Preparação para o Go Live (checklist 0/11) e Planejamento | Preparações Finais | Go Live (0/3), ambas com Raphael/Pedro/Matheus.", "impacto": ["Go Live travado: Preparação (0/11) e Planejamento final (0/3) atrasados.", "Percentual de 75% reflete etapas anteriores; as frentes críticas de go-live estão zeradas.", "Previsão original do projeto era 30/09 — já estourada."], "sugestao": "Reunião de alinhamento com Raphael/Pedro/Matheus para destravar o checklist de Preparação Go Live (0/11) e o Planejamento final (0/3), com datas realistas."}]};
+const COMPARATIVO = {"comercial": [["GLP1", "23/11 e 27/11: 77,77%. Estável."], ["Farmácia Popular 3ª Etapa", "27,65% estável vs 23/11."], ["Sala Farmacêutica 2ª Etapa", "75,41% estável, 24 atrasadas. Loja 57 em 0%; 82 e 115 em 50%; várias acima de 75% ainda com checklist incompleto."], ["Dermoconsultora Maceió", "55,57% estável. Comissão 100%; Treinamento dermo/perfumes 0/5 atrasado; Contrato 3 pessoas lojas 52-124-179 em 2/3 atrasado."], ["Sala Farmacêutica 1ª Etapa", "83,41% estável vs 23/11; 8 atrasadas."], ["360 GC", "23/11: 20%. 27/11: 33,33%. Avanço: análise IQVIA 5/5 concluída em 23/11. Pendente: Revisar mix (0%) e Bloquear baixo giro (0%), prazo 30/11."], ["Aumento Dermo 15%", "23/11: 10%. 27/11: 62,50%. Avanço: Definir marcas (6/6) e Mapear dermatologistas concluídos em 23/11. Pendente: Market share 0% atrasada desde 31/10; Acompanhamento de vendas 2/4."], ["Oncológicos", "23/11: 100% (concluído). 27/11: 77,77%. Motivo: META VENDA em 1/3 (só Outubro marcado; Nov e Dez abertos). Definir medicamentos e Mapear médicos/labs em 100%."]], "dados": [["Educa Permanente", "100% - concluído."], ["Painel Transparência", "75% estável vs 23/11, atrasado."], ["Diferença de Preço", "100% - concluído."], ["Controle de Devolução", "100% - concluído."]], "estoque": [["Dark Store", "6,25% estável vs 23/11."], ["Nível Serviço CD", "100% - concluído."], ["Produtividade 600→900", "47,22% estável vs 23/11."], ["Projeto Nível de Serviço", "100% - concluído."], ["3 Milhões em Parados", "100% - concluído."]], "marketing": [["Material Comunicação Geral", "60% estável. Revisões e material padrão 100%. Levantamento necessidades e cronograma de aplicação em 0%, prazo 30/11."], ["Planejamento 30-60-90", "100% - concluído."], ["Book de Enxoval", "0% estável. Definir temáticas 0/12 atrasada (prazo 24/11). Campanha Macro futura."], ["Pedido Retirada em Loja", "0% estável vs 23/11."], ["Migração Inteliger / Carteira", "40,48% estável vs 23/11."], ["Comunicação 360 App", "87,50% estável. Única pendência: Distribuição do merchandising (0/5), atrasada desde 25/10. Demais 7 tarefas 100%."], ["Entrega a Domicílio", "100% - concluído."], ["Advantage", "87,5% estável vs 23/11."], ["Captação de Receitas", "0% estável vs 23/11."], ["Chat Commerce / BOT", "33,33% estável vs 23/11, 1 atrasada."], ["CRM", "0% estável. Contrato ROCK 0% e material de treinamento 0%. Prazo 30/11 em 3 dias."]], "td": [["Trilha Liderança", "1,67% estável vs 23/11."]], "ti": [["WMS 4.0", "75% estável. Go Live travado: Preparação 0/11 e Planejamento final 0/3, ambos atrasados (Raphael/Pedro/Matheus)."]]};
+const TITLES = {comercial:"Comercial",dados:"Dados",estoque:"Estoque",marketing:"Marketing",td:"T&D",ti:"TI"};
+const STATUS_ORDER = {"Atenção":0,"Sem atualização":1,"Avançou":2,"Sem alteração":3,"Concluído":4};
+let riskMode = false;
+
+function badgeClass(st){
+  if(st==="Avançou"||st==="Concluído") return "b-ok";
+  if(st==="Atenção") return "b-att";
+  if(st==="Sem atualização") return "b-upd";
+  return "b-sem";
+}
+function fmt(n){ return Number(n).toFixed(2).replace(".",",")+"%"; }
+function fmtDelta(d){
+  if(d > 0.05) return {cls:"up", txt:"↑ +"+d.toFixed(2).replace(".",",")+" p.p."};
+  if(d < -0.05) return {cls:"down", txt:"↓ "+d.toFixed(2).replace(".",",")+" p.p."};
+  return {cls:"flat", txt:"→ 0 p.p."};
+}
+function barClass(st){
+  if(st==="Concluído"||st==="Avançou") return "ok";
+  if(st==="Atenção") return "att";
+  return "";
+}
+function sortList(list){
+  return list.slice().sort((a,b)=>{
+    const oa = STATUS_ORDER[a.status] ?? 9;
+    const ob = STATUS_ORDER[b.status] ?? 9;
+    if(oa !== ob) return oa - ob;
+    return a.pct - b.pct;
+  });
+}
+function isRisk(p){
+  return p.status==="Atenção" || p.status==="Sem atualização" || (p.pct < 50 && p.status!=="Concluído");
+}
+function cardHtml(p,id){
+  const d = fmtDelta(p.delta||0);
+  const barW = Math.max(0, Math.min(100, p.pct));
+  if(p.status==="Concluído"){
+    return `<div class="proj" id="${id}" data-status="${p.status}" data-name="${p.name.toLowerCase()}" data-risk="0">
+      <div class="proj-h" onclick="document.getElementById('${id}').classList.toggle('open')">
+        <div class="name">${p.name}</div>
+        <span class="badge b-ok">Concluído</span>
+        <div class="right"><div class="pct">${fmt(p.pct)}</div><div class="delta ${d.cls}">${d.txt}</div></div>
+      </div>
+      <div class="bar ok"><i style="width:${barW}%"></i></div>
+      <div class="proj-b"><p><span class="label">Situação atual:</span> Concluído.</p></div>
+    </div>`;
+  }
+  let impact="";
+  if(p.impacto&&p.impacto.length){
+    impact=`<p><span class="label">O que impacta avanço / atraso:</span></p><ul>${p.impacto.map(i=>`<li>${i}</li>`).join("")}</ul>`;
+  }
+  let sug = p.sugestao ? `<p><span class="label">Sugestão de encaminhamento:</span> ${p.sugestao}</p>` : "";
+  const risk = isRisk(p) ? "1" : "0";
+  return `<div class="proj" id="${id}" data-status="${p.status}" data-name="${p.name.toLowerCase()}" data-risk="${risk}">
+    <div class="proj-h" onclick="document.getElementById('${id}').classList.toggle('open')">
+      <div class="name">${p.name}</div>
+      <span class="badge ${badgeClass(p.status)}">${p.status}</span>
+      <div class="right"><div class="pct">${fmt(p.pct)}</div><div class="delta ${d.cls}">${d.txt}</div></div>
+    </div>
+    <div class="bar ${barClass(p.status)}"><i style="width:${barW}%"></i></div>
+    <div class="proj-b"><p><span class="label">Situação atual:</span> ${p.situacao}</p>${impact}${sug}</div>
+  </div>`;
+}
+function renderCards(key, targetId){
+  const list = sortList(DATA[key]||[]);
+  document.getElementById(targetId).innerHTML = list.map((p,i)=>cardHtml(p,key+"-"+i)).join("");
+}
+function renderAll(){
+  let html="";
+  ["comercial","dados","estoque","marketing","td","ti"].forEach(k=>{
+    const list = sortList(DATA[k]||[]);
+    html += `<h2 class="sec" data-sec="${k}">${TITLES[k]}</h2>`;
+    list.forEach((p,i)=>{ html += cardHtml(p,"all-"+k+"-"+i); });
+  });
+  document.getElementById("allCards").innerHTML = html;
+}
+function renderCmp(key){
+  const rows = COMPARATIVO[key]||[];
+  document.getElementById("cmp-root").innerHTML = rows.map(r=>
+    `<div class="cmp-card"><div class="ct">${r[0]}</div><div class="cr">${r[1]}</div></div>`
+  ).join("");
+}
+function applyFilters(){
+  const q = (document.getElementById("searchBox").value||"").trim().toLowerCase();
+  const st = document.getElementById("statusFilter").value;
+  document.querySelectorAll(".proj").forEach(el=>{
+    const name = el.getAttribute("data-name")||"";
+    const status = el.getAttribute("data-status")||"";
+    const risk = el.getAttribute("data-risk")==="1";
+    let show = true;
+    if(q && !name.includes(q)) show = false;
+    if(st !== "all" && status !== st) show = false;
+    if(riskMode && !risk) show = false;
+    el.classList.toggle("hidden", !show);
+  });
+  document.querySelectorAll("#allCards h2.sec").forEach(h=>{
+    let n = h.nextElementSibling;
+    let any = false;
+    while(n && !n.classList.contains("sec")){
+      if(n.classList.contains("proj") && !n.classList.contains("hidden")) any = true;
+      n = n.nextElementSibling;
+    }
+    h.style.display = any ? "" : "none";
+  });
+  document.querySelectorAll(".panel").forEach(panel=>{
+    const empty = panel.querySelector(".empty-msg");
+    if(!empty) return;
+    const visible = panel.querySelectorAll(".proj:not(.hidden)");
+    const isCmp = panel.id === "tab-comparativo";
+    empty.classList.toggle("hidden", isCmp || visible.length > 0);
+  });
+}
+function toggleRiskMode(){
+  riskMode = !riskMode;
+  document.getElementById("btnRisk").classList.toggle("active", riskMode);
+  applyFilters();
+}
+function showTab(name,btn){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("tab-"+name).classList.add("active");
+  if(name==="comparativo") renderCmp("comercial");
+  applyFilters();
+}
+function showTbl(id,btn){
+  document.querySelectorAll(".stab").forEach(t=>t.classList.remove("active"));
+  btn.classList.add("active");
+  renderCmp(id);
+}
+function toggleExportMenu(e){
+  e.stopPropagation();
+  document.getElementById("exportMenu").classList.toggle("open");
+}
+document.addEventListener("click",()=>{ const m=document.getElementById("exportMenu"); if(m) m.classList.remove("open"); });
+function stClass(s){
+  if(s==="Avançou"||s==="Concluído") return "color:#1E7A3A";
+  if(s==="Atenção") return "color:#B3261E";
+  return "color:#6E6C6C";
+}
+function buildExportBody(){
+  var body = '<div style="font-family:Calibri,Arial,sans-serif;color:#2B2320;font-size:11pt;line-height:1.5;width:100%;box-sizing:border-box;margin:0;padding:0;">';
+  body += '<h1 style="color:#8D1638;font-size:18pt;margin:0 0 4px 0;">Acompanhamento dos Projetos Internos</h1>';
+  body += '<p style="color:#6E6C6C;font-size:10pt;margin:0 0 16px 0;">27/11/2026 · comparação com 23/11/2026</p>';
+  ["comercial","dados","estoque","marketing","td","ti"].forEach(function(k){
+    body += '<h2 style="color:#8D1638;font-size:13pt;border-bottom:1.5pt solid #8D1638;padding-bottom:3px;margin:16px 0 10px 0;">'+TITLES[k]+'</h2>';
+    sortList(DATA[k]||[]).forEach(function(p){
+      const d = fmtDelta(p.delta||0);
+      body += '<p style="font-weight:700;font-size:11pt;margin:12px 0 4px 0;">'+p.name+' · <span style="'+stClass(p.status)+'">'+p.status+'</span> · '+fmt(p.pct)+' <span style="font-weight:600;font-size:10pt;">('+d.txt+')</span></p>';
+      if(p.status==="Concluído"){ body += '<p style="margin:3px 0 10px 0;font-size:10.5pt;"><b>Situação atual:</b> Concluído.</p>'; return; }
+      body += '<p style="margin:3px 0 6px 0;font-size:10.5pt;"><b>Situação atual:</b> '+p.situacao+'</p>';
+      if(p.impacto && p.impacto.length){
+        body += '<p style="margin:3px 0 2px 0;font-size:10.5pt;"><b>O que impacta avanço / atraso:</b></p><ul style="margin:2px 0 8px 20px;padding:0;font-size:10.5pt;">';
+        p.impacto.forEach(function(i){ body += '<li style="margin-bottom:3px;">'+i+'</li>'; });
+        body += '</ul>';
+      }
+      if(p.sugestao) body += '<p style="margin:3px 0 10px 0;font-size:10.5pt;"><b>Sugestão de encaminhamento:</b> '+p.sugestao+'</p>';
+    });
+  });
+  body += '<h2 style="color:#8D1638;font-size:13pt;border-bottom:1.5pt solid #8D1638;padding-bottom:3px;margin:18px 0 8px 0;">Comparativo 23/11 → 27/11</h2>';
+  ["comercial","dados","estoque","marketing","td","ti"].forEach(function(k){
+    body += '<h3 style="color:#8D1638;font-size:11.5pt;margin:14px 0 8px 0;">'+TITLES[k]+'</h3>';
+    (COMPARATIVO[k]||[]).forEach(function(r){
+      body += '<p style="font-weight:700;margin:10px 0 3px 0;font-size:10.5pt;">'+r[0]+'</p>';
+      body += '<p style="margin:0 0 10px 0;font-size:10.5pt;color:#333;">'+r[1]+'</p>';
+    });
+  });
+  body += '<div style="background:#F7F5F4;border:1px solid #E8E1DD;padding:10px;margin-top:12px;font-size:10pt;"><b style="color:#8D1638;">Observação final</b><br>Dermo: marcas e clínicas fechadas em 23/11; Market share atrasada desde 31/10. 360 GC: IQVIA ok; mix e baixo giro 0%. Oncológicos: META VENDA 1/3 (Nov/Dez abertos). Comunicação 360: só Distribuição merchandising 0/5. CRM: contrato ROCK 0%, prazo 30/11.</div></div>';
+  return body;
+}
+function exportWord(){
+  document.getElementById("exportMenu").classList.remove("open");
+  var full = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Acompanhamento Projetos 27-11-2026</title></head><body style="margin:24px;">'+buildExportBody()+'</body></html>';
+  var blob = new Blob(['\ufeff'+full], {type:'application/msword'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'Acompanhamento_Projetos_Internos_27-11-2026.doc';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 800);
+}
+function exportPdf(){
+  document.getElementById("exportMenu").classList.remove("open");
+  var w = window.open('', '_blank', 'width=900,height=700');
+  if(!w){ alert('Permita pop-ups neste site para exportar o PDF.'); return; }
+  var docHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Acompanhamento Projetos 27-11-2026</title>'
+    + '<style>@page{size:A4;margin:20mm 18mm;}html,body{margin:0;padding:0;background:#fff;}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}</style></head><body>'
+    + buildExportBody()
+    + '<script>window.onload=function(){setTimeout(function(){window.print();},300);}<\\/script></body></html>';
+  w.document.open(); w.document.write(docHtml); w.document.close();
+}
+renderAll();
+renderCards("comercial","cards-comercial");
+renderCards("dados","cards-dados");
+renderCards("estoque","cards-estoque");
+renderCards("marketing","cards-marketing");
+renderCards("td","cards-td");
+renderCards("ti","cards-ti");
+renderCmp("comercial");
+applyFilters();
+</script>
+</body>
+</html>
